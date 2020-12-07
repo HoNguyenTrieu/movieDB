@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Card, Col, Container, Pagination, Row } from "react-bootstrap";
+import { Card, Col, Container, Row } from "react-bootstrap";
 import PaginationBar from "../components/PaginationBar";
-import SearchForm from "../components/SearchForm";
+// import SearchForm from "../components/SearchForm";
 import { useHistory } from "react-router-dom";
 import PublicNavbar from "../components/PublicNavbar";
 import api from "../apiService";
