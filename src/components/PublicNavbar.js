@@ -1,7 +1,6 @@
 import React from "react";
 import { Navbar, Nav } from "react-bootstrap";
 import logo from "../images/logo.svg";
-import githubIco from "../images/github_icon.png";
 import { NavLink } from "react-router-dom";
 import SearchForm from "./SearchForm";
 const PublicNavbar = ({

@@ -12,7 +12,9 @@ const HomePage = () => {
   const [searchInput, setSearchInput] = useState("");
   const [query, setQuery] = useState("");
   const [totalPage, setTotalPage] = useState(1);
-  const limit = 10;
+  // eslint-disable-next-line
+  const [loading, setLoading] = useState(false);
+  // const limit = 10;
 
   const handleSearchChange = (e) => {
     setSearchInput(e.target.value);
@@ -22,8 +24,6 @@ const HomePage = () => {
     e.preventDefault();
     setQuery(searchInput);
   };
-
-  const [loading, setLoading] = useState(false);
 
   const history = useHistory();
   const handleClick = (id) => {
