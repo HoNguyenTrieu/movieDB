@@ -4,8 +4,8 @@ import PaginationBar from "../components/PaginationBar";
 import SearchForm from "../components/SearchForm";
 import { useHistory } from "react-router-dom";
 import PublicNavbar from "../components/PublicNavbar";
+import api from "../apiService";
 
-const movieAPI = process.env.REACT_APP_API_KEY;
 const HomePage = () => {
   const [movies, setMovies] = useState([]);
   const [pageNum, setPageNum] = useState(1);
@@ -32,17 +32,19 @@ const HomePage = () => {
   };
   useEffect(() => {
     const fetchData = async () => {
-      let url = `https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=${movieAPI}&page=${pageNum}`;
+      try {
+        let url = `discover/movie?sort_by=popularity.desc&page=${pageNum}`;
+        if (query) url = `search/movie?query=${query}`;
 
-      if (query)
-        url = `https://api.themoviedb.org/3/search/movie?api_key=${movieAPI}&query=${query}`;
-
-      const res = await fetch(url);
-      const data = await res.json();
-      console.log(data);
-      setMovies(data.results);
-      setTotalPage(data.total_pages);
-      console.log(data.results);
+        const res = await api.get(url);
+        const data = res.data;
+        console.log(data);
+        setMovies(data.results);
+        setTotalPage(data.total_pages);
+        console.log(data.results);
+      } catch (error) {
+        console.log(error.message);
+      }
     };
     fetchData();
   }, [query, pageNum]);
