@@ -9,10 +9,9 @@ import MovieList from "./pages/MovieList";
 function App() {
   return (
     <Router>
-      <h1 className="d-flex justify-content-center">Universal Movie</h1>
       <Switch>
         <Route exact path="/movie/:id" component={MovieDetailPage} />
-        <Route exact path="/movies" component={MovieList} />
+        <Route exact path="/favorites" component={MovieList} />
         <Route exact path="/" component={HomePage} />
         <Route component={NotFoundPage} />
       </Switch>

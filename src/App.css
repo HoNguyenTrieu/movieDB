@@ -13,3 +13,40 @@
   scrollbar-width: none; /* Firefox */
   color: #151c26;
 }
+
+.wrapper {
+  background-color: black;
+  text-align: center;
+  width: 100%;
+}
+
+/* card-content */
+#card-image {
+  min-width: 300px;
+  min-height: 450px;
+  opacity: 1;
+}
+
+#card-content {
+  opacity: 0;
+}
+
+#card:hover #card-image {
+  opacity: 0.2;
+}
+
+#card:hover #card-content {
+  opacity: 1;
+}
+
+#item-title {
+  text-decoration: none;
+  color: white;
+}
+
+#overview-text::-webkit-scrollbar {
+  display: flex;
+  text-align: justify;
+  max-height: 125px;
+  overflow-y: scroll;
+}

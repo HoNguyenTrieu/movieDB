@@ -18,8 +18,8 @@ const PublicNavbar = ({
         <Nav.Link as={NavLink} to="/">
           Home
         </Nav.Link>
-        <Nav.Link as={NavLink} to="/movies">
-          Movie List
+        <Nav.Link as={NavLink} to="/favorites">
+          Favorite Movie
         </Nav.Link>
       </Nav>
       <SearchForm

@@ -1,14 +1,26 @@
 import { useParams } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import api from "../apiService";
-import { Badge, Col, Container, Row } from "react-bootstrap";
+import { Badge, Col, Container, Row, Button } from "react-bootstrap";
+import { toast } from "react-toastify";
+import PropagateLoader from "react-spinners/PropagateLoader";
 
 // const MOVIETRAILER = `https://api.themoviedb.org/3/movie/${params.id}/videos?api_key=${movieAPI}&language=en-US`;
 const MovieDetailPage = () => {
-  const params = useParams();
-  const [movie, setMovie] = useState(null);
+  const [color, setColor] = useState("#d35400");
   const [loading, setLoading] = useState(false);
+  const [movie, setMovie] = useState(null);
+  const [addingMovie, setAddingMovie] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const params = useParams();
   console.log(params);
+
+  const addToFavorites = (movie) => {
+    // console.log(movie)
+    setAddingMovie(movie);
+  };
+
+  // This function to get data details books
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
@@ -24,10 +36,28 @@ const MovieDetailPage = () => {
     fetchData();
   }, [params]);
 
+  // ad movie to favorite
+  useEffect(() => {
+    const postData = async () => {
+      if (!addingMovie) return;
+      setLoading(true);
+      try {
+        const res = await api.post(`/favorites`, addingMovie);
+        setErrorMessage("");
+        toast.success("Đã add thành công");
+      } catch (error) {
+        // setErrorMessage(error.message);
+        toast.error("Đã có rồi mà còn ham hố add thêm hả??");
+      }
+      setLoading(false);
+    };
+    postData();
+  }, [addingMovie]);
+
   return (
     <>
       {loading ? (
-        <div>loading...</div>
+        <PropagateLoader color={color} loading={loading} size={15} />
       ) : (
         <>
           {movie && (
@@ -48,8 +78,15 @@ const MovieDetailPage = () => {
                     <Badge variant="info">
                       <strong>Release date: </strong>
                       {movie.release_date}
-                    </Badge>{" "}
+                    </Badge>
                   </div>
+                  <Button
+                    className="mt-5"
+                    variant="outline-danger"
+                    onClick={() => addToFavorites(movie)}
+                  >
+                    Add favorite
+                  </Button>
                 </Col>
               </Row>
             </Container>
