@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from "react";
-import { Badge, Card, Col, Container, Row } from "react-bootstrap";
-import PaginationBar from "../components/PaginationBar";
+import React, { useEffect, useState } from "react";
+import { Badge, Card, Col, Row } from "react-bootstrap";
+import Moment from "react-moment";
+import Zoom from "react-reveal/Zoom";
 // import SearchForm from "../components/SearchForm";
 import { useHistory } from "react-router-dom";
-import PublicNavbar from "../components/PublicNavbar";
 import api from "../apiService";
-import Zoom from "react-reveal/Zoom";
-import Moment from "react-moment";
+import PaginationBar from "../components/PaginationBar";
+import PublicNavbar from "../components/PublicNavbar";
 
 const API_KEY = process.env.REACT_APP_API_KEY;
 
@@ -19,7 +19,6 @@ const HomePage = () => {
   // eslint-disable-next-line
   const [loading, setLoading] = useState(false);
   // const limit = 10;
-  const [genreList, setGenreList] = useState(null);
   const handleSearchChange = (e) => {
     setSearchInput(e.target.value);
   };
@@ -51,20 +50,6 @@ const HomePage = () => {
       }
     };
     fetchData();
-
-    const getGenre = async () => {
-      try {
-        let url = `genre/movie/list?api_key=${API_KEY}&language=en-US`;
-        const res = await api.get(url);
-        const genreResult = res.data;
-        fetchData();
-        setGenreList(genreResult.genres);
-        console.log("genres", genreResult.genres);
-      } catch (error) {
-        console.log(error.message);
-      }
-    };
-    getGenre();
   }, [query, pageNum]);
 
   return (

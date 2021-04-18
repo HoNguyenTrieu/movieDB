@@ -7,11 +7,10 @@ import PropagateLoader from "react-spinners/PropagateLoader";
 
 // const MOVIETRAILER = `https://api.themoviedb.org/3/movie/${params.id}/videos?api_key=${movieAPI}&language=en-US`;
 const MovieDetailPage = () => {
-  const [color, setColor] = useState("#d35400");
+  const color = "#d35400";
   const [loading, setLoading] = useState(false);
   const [movie, setMovie] = useState(null);
   const [addingMovie, setAddingMovie] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
   const params = useParams();
   console.log(params);
 
@@ -28,9 +27,7 @@ const MovieDetailPage = () => {
         const res = await api.get(`/movie/${params.id}?`);
         const data = res.data;
         setMovie(data);
-      } catch (error) {
-        console.log(error);
-      }
+      } catch (error) {}
       setLoading(false);
     };
     fetchData();
@@ -43,7 +40,6 @@ const MovieDetailPage = () => {
       setLoading(true);
       try {
         const res = await api.post(`/favorites`, addingMovie);
-        setErrorMessage("");
         toast.success("Đã add thành công");
       } catch (error) {
         // setErrorMessage(error.message);
