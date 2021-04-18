@@ -8,8 +8,6 @@ import api from "../apiService";
 import PaginationBar from "../components/PaginationBar";
 import PublicNavbar from "../components/PublicNavbar";
 
-const API_KEY = process.env.REACT_APP_API_KEY;
-
 const HomePage = () => {
   const [movies, setMovies] = useState([]);
   const [pageNum, setPageNum] = useState(1);

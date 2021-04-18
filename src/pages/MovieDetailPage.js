@@ -33,23 +33,6 @@ const MovieDetailPage = () => {
     fetchData();
   }, [params]);
 
-  // ad movie to favorite
-  useEffect(() => {
-    const postData = async () => {
-      if (!addingMovie) return;
-      setLoading(true);
-      try {
-        const res = await api.post(`/favorites`, addingMovie);
-        toast.success("Đã add thành công");
-      } catch (error) {
-        // setErrorMessage(error.message);
-        toast.error("Đã có rồi mà còn ham hố add thêm hả??");
-      }
-      setLoading(false);
-    };
-    postData();
-  }, [addingMovie]);
-
   return (
     <>
       {loading ? (
