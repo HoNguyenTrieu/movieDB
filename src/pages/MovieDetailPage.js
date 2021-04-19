@@ -1,9 +1,10 @@
+import React, { useEffect, useState } from "react";
+import { Badge, Button, Col, Container, Row } from "react-bootstrap";
 import { useParams } from "react-router-dom";
-import React, { useState, useEffect } from "react";
-import api from "../apiService";
-import { Badge, Col, Container, Row, Button } from "react-bootstrap";
-import { toast } from "react-toastify";
 import PropagateLoader from "react-spinners/PropagateLoader";
+import api from "../apiService";
+
+const API_KEY = process.env.REACT_APP_API_KEY;
 
 // const MOVIETRAILER = `https://api.themoviedb.org/3/movie/${params.id}/videos?api_key=${movieAPI}&language=en-US`;
 const MovieDetailPage = () => {
@@ -11,6 +12,8 @@ const MovieDetailPage = () => {
   const [loading, setLoading] = useState(false);
   const [movie, setMovie] = useState(null);
   const [addingMovie, setAddingMovie] = useState(false);
+  let [movieID, setMovieID] = useState("");
+  const [show, setShow] = useState(false);
   const params = useParams();
   console.log(params);
 
@@ -53,6 +56,13 @@ const MovieDetailPage = () => {
                 <Col className="ml-5">
                   <div>
                     <h1>{movie.title}</h1>
+                    {movie.genres.map((item) => {
+                      return (
+                        <Badge pill className="mr-2" variant="danger">
+                          {item.name}
+                        </Badge>
+                      );
+                    })}
                     <p>{movie.overview}</p>
                     <Badge variant="info">
                       <strong>Release date: </strong>

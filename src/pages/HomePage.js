@@ -34,6 +34,7 @@ const HomePage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        setLoading(true);
         let url = `discover/movie?sort_by=popularity.desc&page=${pageNum}`;
         if (query) url = `search/movie?query=${query}`;
 
@@ -43,6 +44,7 @@ const HomePage = () => {
         setMovies(data.results);
         setTotalPage(data.total_pages);
         console.log(data.results);
+        setLoading(false);
       } catch (error) {
         console.log(error.message);
       }
@@ -59,45 +61,6 @@ const HomePage = () => {
         handleSubmit={handleSubmitSearch}
       />
       <h1 className="d-flex justify-content-center">Universal Movie</h1>
-      {/* <Container>
-        <Row className="justify-content-center">
-          <Col md={9}>
-            <PaginationBar
-              pageNum={pageNum}
-              setPageNum={setPageNum}
-              totalPageNum={totalPage}
-            />
-          </Col>
-        </Row>
-        <Row>
-          {loading ? (
-            <div>Loading..</div>
-          ) : (
-            <div className="d-flex justify-content-around flex-wrap movie">
-              {movies &&
-                movies.map((movie) => (
-                  <Card
-                    key={movie.id}
-                    style={{ width: "18rem" }}
-                    onClick={() => handleClick(movie.id)}
-                  >
-                    <Card.Img
-                      variant="top"
-                      src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
-                    />
-                    <Card.Body>
-                      <Card.Title>{movie.title}</Card.Title>
-                      <Card.Text className="textbox movie-over">
-                        {movie.overview}
-                      </Card.Text>
-                    </Card.Body>
-                  </Card>
-                ))}
-            </div>
-          )}
-        </Row>
-      </Container> */}
-
       <div className="container-fluid">
         <div className="Row">
           <Row className="justify-content-center">
@@ -137,19 +100,10 @@ const HomePage = () => {
                               </a>
                             </Card.Title>
                             <Card.Text className="mb-2">
-                              {movie.genre_ids.map((movieId) => {
-                                return (
-                                  <Badge pill className="mr-2" variant="danger">
-                                    {/* {
-                                      movie.genreList.find(
-                                        (genre) => genre.id === movieId
-                                      ).name
-                                    } */}
-                                    <strong>Release date: </strong>
-                                    {movie.release_date}
-                                  </Badge>
-                                );
-                              })}
+                              <Badge pill className="mr-2" variant="danger">
+                                <strong>Release date: </strong>
+                                {movie.release_date}
+                              </Badge>
                             </Card.Text>
                             <Card.Text>Ratings: {movie.vote_average}</Card.Text>
                             <Card.Text>
